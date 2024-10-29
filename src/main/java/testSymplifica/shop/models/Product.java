@@ -1,13 +1,13 @@
 package testSymplifica.shop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
+
 
 @Entity
 
-public class Products {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -16,8 +16,11 @@ public class Products {
     private Long price;
     private Integer current_Stock;
 
-    public Products(){}
-    public Products(Integer id, String name, String description, Long price, Integer current_Stock){
+    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
+
+    public Product(){}
+    public Product(Integer id, String name, String description, Long price, Integer current_Stock){
         this.id = id;
         this.name = name;
         this.description = description;
