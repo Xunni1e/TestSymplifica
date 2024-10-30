@@ -10,4 +10,7 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("select o.id, p.name, p.price from Order o join Product p")
     List<Object[]> findOrderAndProductsDetails();
+
+    @Query("SELECT MAX(o.id) FROM Order o")
+    Integer findLastId();
 }

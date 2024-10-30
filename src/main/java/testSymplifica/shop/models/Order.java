@@ -2,6 +2,8 @@ package testSymplifica.shop.models;
 
 import jakarta.persistence.*;
 
+import java.util.Optional;
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -15,8 +17,10 @@ public class Order {
 
     public Order() {
     }
-    public Order(Integer id) {
+
+    public Order(Integer id, Product product) {
         this.id = id;
+        this.product = product;
     }
 
     public Integer getId() {
@@ -25,5 +29,13 @@ public class Order {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

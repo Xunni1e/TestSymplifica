@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<ProductDto> getProductById(Integer id) {
+    public Optional<ProductDto> getProductDtoById(Integer id) {
          return productRepository.findById(id).map(this::mapToProductDto);
     }
 
@@ -26,6 +26,12 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> findAllProducts() {
         return productRepository.findAll().stream().map(this::mapToProductDto).collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<Product> getProductById(Integer id) {
+        return productRepository.findById(id);
+    }
+
 
     private ProductDto mapToProductDto(Product product){
         ProductDto dto = new ProductDto();

@@ -1,24 +1,133 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th ="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TestSymplifica</title>
+    <script>
+
+        function addProducts(){
+            const left = document.getElementById("left");
+            const right = document.getElementById("right");
+            moveSelecteditems(left,right)
+        }
+        
+        function removeProducts(){
+            const left = document.getElementById("left");
+            const right = document.getElementById("right");
+            moveSelecteditems(right,left, true)
+        }
+
+        function moveSelecteditems(fromList, toList, restoreOrder = false){
+            const selectedItems = Array.from(fromList.querySelectorAll("input[type=checkbox]:checked"))
+            selectedItems.forEach(item=>{
+                const li = document.createElement("li");
+
+                const checkbox = document.createElement("input")
+                checkbox.type = "checkbox";
+                checkbox.checked = false;
+                checkbox.value = item.value;
+                checkbox.name = "selectedProducts";
+
+                checkbox.setAttribute("data-name", item.getAttribute("data-name"));
+                checkbox.setAttribute("data-index", item.getAttribute("data-index"));
+
+                const label = document.createElement("span");
+                label.textContent = item.getAttribute("data-name") || item.textContent;
+
+                li.appendChild(checkbox);
+                li.appendChild(label);
+                
+
+                fromList.removeChild(item.closest("li"));
+                if (restoreOrder) {
+                    
+                    const index = parseInt(item.getAttribute("data-index"));
+                    insertInOrder(toList, li, index);
+                } else {
+                    
+                    toList.appendChild(li);
+                }
+            })
+        }
+        function insertInOrder(list, newItem, index) {
+            
+            const items = Array.from(list.children);
+            let inserted = false;
+
+            for (const item of items) {
+                const itemIndex = parseInt(item.querySelector("input").getAttribute("data-index"));
+                if (itemIndex > index) {
+                    list.insertBefore(newItem, item);
+                    inserted = true;
+                    break;
+                }
+            }
+
+            if (!inserted) {
+                list.appendChild(newItem);
+            }
+        }
+
+
+    </script>
 </head>
 <body>
-    <div class="container">
-        <div class="product-selection">
-            <div class="right-list">
+    <main class="container">
+        <section class="product-selection">
+            <article class="left-list">
                 <h3>Product list</h3>
-                <ul>
-                    <li th:each="product : ${products}">
-                        <input type="checkbox" th:value="${product.id}" th:text="${product.name}">
+                <ul id="left">
+                    <li th:each="product, iterStat : ${products}">
+                        <input type="checkbox"
+                               th:value="${product.id}"
+                               th:data-id="${product.id}"
+                               th:data-name="${product.name}"
+                               th:data-index="${iterStat.index}">
+
+                        <span th:text="${product.name}"></span>
                     </li>
                 </ul>
+            </article>
 
-            </div>
 
-        </div>
-    </div>
+            <article class="buttons-add-remove">
+                <button onclick="addProducts()">Add Product(s) =></button>
+                <button onclick="removeProducts()"><= Remove Product(s)</button>
+            </article>
+
+
+            <article class="right-list">
+                <h3>Order list</h3>
+                <ul id="right">
+                    
+                </ul>
+            </article>
+        </section>
+
+        <section>
+            <button class="generate-order">Generate Order</button>
+        </section>
+    
+        <section class="order-table">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Order No</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
 </body>
 </html>
