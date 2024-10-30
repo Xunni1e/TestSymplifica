@@ -3,11 +3,11 @@ package testSymplifica.shop.dto;
 public class ProductDto {
     private Integer id;
     private String name;
-    private Long price;
+    private String price;
 
     public ProductDto() {
     }
-    public ProductDto(Integer id, String name, Long price) {
+    public ProductDto(Integer id, String name, String price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -29,11 +29,11 @@ public class ProductDto {
         this.name = name;
     }
 
-    public Long getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

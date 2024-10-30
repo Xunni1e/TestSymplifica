@@ -1,11 +1,12 @@
 package testSymplifica.shop.services;
 
+import org.springframework.stereotype.Service;
 import testSymplifica.shop.dto.OrderDto;
 import testSymplifica.shop.repository.OrderRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class OrderServiceImpl implements OrderService{
 
     private final OrderRepository orderRepository;
