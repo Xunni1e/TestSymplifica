@@ -29,7 +29,6 @@ public class GlobalController {
     public String homePage(Model model){
         List<ProductDto> products = productService.findAllProducts();
         model.addAttribute("products", products);
-
         List<OrderDto> orders = orderService.findAllOrders();
         model.addAttribute("orders",orders);
         return "index";

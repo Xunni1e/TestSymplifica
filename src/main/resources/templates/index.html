@@ -26,7 +26,7 @@
 
                 const checkbox = document.createElement("input")
                 checkbox.type = "checkbox";
-                checkbox.checked = false;
+                checkbox.checked = true;
                 checkbox.value = item.value;
                 checkbox.name = "selectedProducts";
 
@@ -49,6 +49,7 @@
 
                     toList.appendChild(li);
                 }
+
             })
         }
         function insertInOrder(list, newItem, index) {
@@ -67,6 +68,15 @@
 
             if (!inserted) {
                 list.appendChild(newItem);
+            }
+        }
+        function validateForm(event) {
+            const rightList = document.getElementById("right");
+            const hasProducts = rightList.querySelectorAll("li").length > 0;
+
+            if (!hasProducts) {
+                event.preventDefault();
+                alert("Please add at least one product before submitting the order.");
             }
         }
 
@@ -92,11 +102,11 @@
             </ul>
         </article>
         <article class="buttons-add-remove">
-            <button onclick="addProducts()">Add Product(s) =></button>
-            <button onclick="removeProducts()"><= Remove Product(s)</button>
+            <button type="button" onclick="addProducts()">Add Product(s) =></button>
+            <button type="button" onclick="removeProducts()"><= Remove Product(s)</button>
         </article>
 
-    <form th:action="@{/}" method="post" class="form-selection">
+    <form th:action="@{/}" method="post" class="form-selection" onsubmit="validateForm(event)">
 
 
             <article class="right-list">
@@ -105,7 +115,7 @@
 
                 </ul>
             </article>
-            <button class="generate-order">Generate Order</button>
+            <button type="submit" class="generate-order">Generate Order</button>
     </form>
     </section>
 
