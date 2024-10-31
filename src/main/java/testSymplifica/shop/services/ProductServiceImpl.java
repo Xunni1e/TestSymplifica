@@ -32,6 +32,16 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id);
     }
 
+    @Override
+    public String findNameById(Integer id) {
+        return productRepository.findNameById(id);
+    }
+
+    @Override
+    public String findPriceById(Integer id) {
+        return productRepository.findPriceById(id);
+    }
+
 
     private ProductDto mapToProductDto(Product product){
         ProductDto dto = new ProductDto();

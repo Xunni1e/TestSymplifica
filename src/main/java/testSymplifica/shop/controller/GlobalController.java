@@ -1,11 +1,13 @@
 package testSymplifica.shop.controller;
 
 
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import testSymplifica.shop.dto.OrderDto;
 import testSymplifica.shop.dto.ProductDto;
 import testSymplifica.shop.services.OrderServiceImpl;
 import testSymplifica.shop.services.ProductServiceImpl;
@@ -27,6 +29,9 @@ public class GlobalController {
     public String homePage(Model model){
         List<ProductDto> products = productService.findAllProducts();
         model.addAttribute("products", products);
+
+        List<OrderDto> orders = orderService.findAllOrders();
+        model.addAttribute("orders",orders);
         return "index";
     }
     @PostMapping("/")

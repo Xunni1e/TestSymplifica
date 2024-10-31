@@ -10,5 +10,7 @@ public interface ProductService {
     Optional<ProductDto> getProductDtoById(Integer id);
     List<ProductDto> findAllProducts();
     Optional<Product> getProductById(Integer id);
+    String findNameById(Integer id);
+    String findPriceById(Integer id);
 
 }

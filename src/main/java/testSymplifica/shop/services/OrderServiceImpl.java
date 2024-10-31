@@ -27,14 +27,21 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<OrderDto> findAllOrders() {
-        /*return orderRepository.findOrderAndProductsDetails().stream().map(order ->{
-            OrderDto dto = new OrderDto();
-            dto.setId((Integer) order[0]);
-            dto.setProduct_Name((String) order[1]);
-            dto.setProduct_Price((Long) order[2]);
-            return dto;
-        }).collect(Collectors.toList());*/
-        return null;
+        List<OrderDto> ordersDto = new ArrayList<>();
+        List<Order> orders = orderRepository.findAll();
+        for (Order order : orders){
+            OrderId orderId = order.getId();
+            Integer id = orderId.getId();
+            Integer productId = orderId.getProductId();
+            String productName = productService.findNameById(productId);
+            String productPrice = productService.findPriceById(productId);
+            OrderDto orderDto = new OrderDto();
+            orderDto.setId(id);
+            orderDto.setProduct_Name(productName);
+            orderDto.setProduct_Price(productPrice);
+            ordersDto.add(orderDto);
+        }
+        return ordersDto;
     }
 
     @Override

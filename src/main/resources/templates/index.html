@@ -12,7 +12,7 @@
             const right = document.getElementById("right");
             moveSelecteditems(left,right)
         }
-        
+
         function removeProducts(){
             const left = document.getElementById("left");
             const right = document.getElementById("right");
@@ -38,21 +38,21 @@
 
                 li.appendChild(checkbox);
                 li.appendChild(label);
-                
+
 
                 fromList.removeChild(item.closest("li"));
                 if (restoreOrder) {
-                    
+
                     const index = parseInt(item.getAttribute("data-index"));
                     insertInOrder(toList, li, index);
                 } else {
-                    
+
                     toList.appendChild(li);
                 }
             })
         }
         function insertInOrder(list, newItem, index) {
-            
+
             const items = Array.from(list.children);
             let inserted = false;
 
@@ -74,63 +74,63 @@
     </script>
 </head>
 <body>
-    <main class="container">
-        <section class="product-selection">
-            <article class="left-list">
-                <h3>Product list</h3>
-                <ul id="left">
-                    <li th:each="product, iterStat : ${products}">
-                        <input type="checkbox"
-                               th:value="${product.id}"
-                               th:data-id="${product.id}"
-                               th:data-name="${product.name}"
-                               th:data-index="${iterStat.index}"
-                               name="selectedProducts">
+<main class="container">
+    <section class="product-selection">
+        <article class="left-list">
+            <h3>Product list</h3>
+            <ul id="left">
+                <li th:each="product, iterStat : ${products}">
+                    <input type="checkbox"
+                           th:value="${product.id}"
+                           th:data-id="${product.id}"
+                           th:data-name="${product.name}"
+                           th:data-index="${iterStat.index}"
+                           name="selectedProducts">
 
-                        <span th:text="${product.name}"></span>
-                    </li>
+                    <span th:text="${product.name}"></span>
+                </li>
+            </ul>
+        </article>
+        <article class="buttons-add-remove">
+            <button onclick="addProducts()">Add Product(s) =></button>
+            <button onclick="removeProducts()"><= Remove Product(s)</button>
+        </article>
+
+    <form th:action="@{/}" method="post" class="form-selection">
+
+
+            <article class="right-list">
+                <h3>Order list</h3>
+                <ul id="right">
+
                 </ul>
             </article>
+            <button class="generate-order">Generate Order</button>
+    </form>
+    </section>
 
 
-            <article class="buttons-add-remove">
-                <button onclick="addProducts()">Add Product(s) =></button>
-                <button onclick="removeProducts()"><= Remove Product(s)</button>
-            </article>
-
-            <form th:action="@{/}" method="post">
-                <article class="right-list">
-                    <h3>Order list</h3>
-                    <ul id="right">
-
-                    </ul>
-                </article>
-                <section>
-                    <button class="generate-order">Generate Order</button>
-                </section>
-            </form>
-        </section>
-
-
-    
-        <section class="order-table">
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Order No</th>
-                        <th>Product Name</th>
-                        <th>Product Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+    <section class="order-table">
+        <table border="1">
+            <thead>
+            <tr>
+                <th colspan="3" class="table-title">Orders</th>
+            </tr>
+            <tr>
+                <th>Order No</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order: ${orders}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.product_Name}"></td>
+                <td th:text="${order.product_Price}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
 </body>
 </html>
