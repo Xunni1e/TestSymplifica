@@ -7,7 +7,7 @@ CREATE TABLE  products (
 );
 
 CREATE TABLE orders (
-    id SERIAL PRIMARY KEY,
+    id INT PRIMARY KEY,
     product_id INT NOT NULL,
     FOREIGN KEY (product_id) REFERENCES products(id)
 );

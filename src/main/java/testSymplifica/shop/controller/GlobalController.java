@@ -4,6 +4,8 @@ package testSymplifica.shop.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import testSymplifica.shop.dto.ProductDto;
 import testSymplifica.shop.services.OrderServiceImpl;
 import testSymplifica.shop.services.ProductServiceImpl;
@@ -26,5 +28,11 @@ public class GlobalController {
         List<ProductDto> products = productService.findAllProducts();
         model.addAttribute("products", products);
         return "index";
+    }
+    @PostMapping("/")
+    public String submit(@RequestParam List<Integer> selectedProducts, Model model){
+        System.out.println("Productos seleccionados: " + selectedProducts);
+        orderService.createNewOrder(selectedProducts);
+        return "redirect:/";
     }
 }

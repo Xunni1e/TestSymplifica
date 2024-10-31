@@ -84,7 +84,8 @@
                                th:value="${product.id}"
                                th:data-id="${product.id}"
                                th:data-name="${product.name}"
-                               th:data-index="${iterStat.index}">
+                               th:data-index="${iterStat.index}"
+                               name="selectedProducts">
 
                         <span th:text="${product.name}"></span>
                     </li>
@@ -97,18 +98,20 @@
                 <button onclick="removeProducts()"><= Remove Product(s)</button>
             </article>
 
+            <form th:action="@{/}" method="post">
+                <article class="right-list">
+                    <h3>Order list</h3>
+                    <ul id="right">
 
-            <article class="right-list">
-                <h3>Order list</h3>
-                <ul id="right">
-                    
-                </ul>
-            </article>
+                    </ul>
+                </article>
+                <section>
+                    <button class="generate-order">Generate Order</button>
+                </section>
+            </form>
         </section>
 
-        <section>
-            <button class="generate-order">Generate Order</button>
-        </section>
+
     
         <section class="order-table">
             <table border="1">
